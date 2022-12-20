@@ -4,16 +4,19 @@ import sys
 pygame.init()
 pygame.font.init()
 
+# Window variables
 window_size = width, height = [600, 650]
 box_width = width / 3
 box_height = 600 / 3
 box_size = [box_width, box_height]
 
+# Game variables
 round_count = 0
 winner = ""
 x_win = 0
 o_win = 0
 
+# Colors
 black = 0, 0, 0
 red = 250, 0, 0
 white = 255, 255, 255
@@ -21,18 +24,20 @@ white = 255, 255, 255
 # Screen initialization
 screen = pygame.display.set_mode(window_size)
 screen.fill(white)
-font = pygame.font.SysFont("Copperplate Gothic Bold", 350)
-font2 = pygame.font.SysFont("Copperplate Gothic Bold", 32)
-font3 = pygame.font.SysFont("Calibri light ", 22)
 pygame.display.set_caption("Tick Tack Toe")
 pygame_icon = pygame.image.load("tictactoe_effects/TickTackToe_Icon.jpg")
 pygame.display.set_icon(pygame_icon)
+
+# Fonts
+font = pygame.font.SysFont("Copperplate Gothic Bold", 350)
+font2 = pygame.font.SysFont("Copperplate Gothic Bold", 32)
+font3 = pygame.font.SysFont("Calibri light ", 22)
 
 # Sound effects
 x_sound = pygame.mixer.Sound("tictactoe_effects/x_sound.mp3")
 o_sound = pygame.mixer.Sound("tictactoe_effects/o_sound.mp3")
 
-
+# Choosing current player at the start of the round
 if round_count % 2 == 0:
     player = True
 else:
@@ -111,7 +116,7 @@ def draw_field():
     box8.draw_box()
     box9.draw_box()
 
-
+# Drawing buttons
 def draw_buttons():
     pygame.draw.rect(screen,white, (410,605,180,30))
     pygame.draw.rect(screen, black, (430, 602, 140, 40), 2, 4)
@@ -123,7 +128,7 @@ def draw_buttons():
     screen.blit(text2, text2_rect)
 
 
-
+# Drawing text on the bottom
 def draw_player():
     if player:
         turn = "X"
@@ -140,14 +145,14 @@ def draw_player():
     screen.blit(text2, text2_rect)
 
 
-
+# Blocking the mouse because of a bug
 def block_mouse():
     pygame.event.set_blocked(pygame.MOUSEMOTION)
     pygame.event.set_blocked(pygame.MOUSEBUTTONUP)
     pygame.event.set_blocked(pygame.MOUSEBUTTONDOWN)
     pygame.event.set_blocked(pygame.MOUSEWHEEL)
 
-
+# Restarting the game
 def restart():
     global screen, font, player
     screen.fill(white)
@@ -205,8 +210,8 @@ while True:
                 screen.blit(text2, text2_rect)
                 winner = "x"
                 block_mouse()
-
                 break
+                
         for event in pygame.event.get():
             # Turning off the game
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
@@ -248,7 +253,7 @@ while True:
 
     for event in pygame.event.get():
 
-        #Getting the winner
+        # Getting the winner
         if pygame.mouse.get_focused():
             if winner == "o":
                 o_win += 1
